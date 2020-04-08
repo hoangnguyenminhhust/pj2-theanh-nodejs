@@ -1,0 +1,22 @@
+{
+  "name": "pj2-theanh-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "md5": "^2.2.1",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7"
+  }
+}
