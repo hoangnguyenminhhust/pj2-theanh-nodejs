@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+
 const roomSchema = new mongoose.Schema({
     building: {
         type: String,
@@ -13,6 +15,13 @@ const roomSchema = new mongoose.Schema({
         type: Number,
         enum: [200000, 400000]
     },
+    room_max_peoples: {
+        type: Number,
+    },
+    room_size: {
+        type: Number,
+        max: 30
+    },
     room_id: {
         type: String,
         unique: true
@@ -25,6 +34,12 @@ const roomSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    list_student: [{
+        student: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student',
+        }
+    }]
 
 })
 roomSchema.index({

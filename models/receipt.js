@@ -5,6 +5,10 @@ const receiptSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student',
     },
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room',
+    },
     fee_room: {
         type: Number,
         default: 0
@@ -14,17 +18,12 @@ const receiptSchema = new mongoose.Schema({
         default: 0
     },
     payment: String,
-    room: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room',
-    },
+
     date_valid_fee_room: {
-        type: Date,
-        default: 30 / 05 / 1111
+        type: String
     },
     date_valid_fee_living: {
-        type: Date,
-        default: 30 / 05 / 1111
+        type: String
     },
 
 })

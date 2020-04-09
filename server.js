@@ -7,6 +7,9 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 // Đăng ký model
+const studentModel = require('./models/student')
+// Đăng ký Route
+const studentRoute = require('./routes/student')
 // const manageModel = require('./models/manager')
 const nodemailer = require('nodemailer')
 // Kết nối database
@@ -21,6 +24,7 @@ mongoose.connect(
     else console.log('Connect to DB Success!')
   })
 // đăng kí một số option
+app.use(express.json())
 app.use(bodyParser.urlencoded({
   extended: false
 }))
@@ -30,9 +34,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+app.use('/student',studentRoute)
 
 
 app.listen(process.env.PORT, (err) => {
   if (err) console.log(err)
-  else console.log('Connected Sever')
+  else console.log('RestFul API Start on ' ,process.env.PORT)
 })
