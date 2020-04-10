@@ -17,7 +17,7 @@ exports.student_log_out = function (req, res) {
 }
 
 
-module.exports.student_login = async (req, res) => {
+exports.student_login = async (req, res) => {
   try {
     const user = await Student.findByCredentials(req.body.user_name, req.body.password)
     const token = await user.generateAuthToken()
