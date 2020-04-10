@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const roomSchema = new mongoose.Schema({
     building: {
         type: String,
@@ -15,14 +13,11 @@ const roomSchema = new mongoose.Schema({
         type: Number,
         enum: [200000, 400000]
     },
-    room_max_peoples: {
-        type: Number,
-    },
     room_size: {
         type: Number,
         max: 30
     },
-    room_id: {
+    room: {
         type: String,
         unique: true
     },
@@ -30,21 +25,36 @@ const roomSchema = new mongoose.Schema({
         type: String,
         enum: ['male', 'female', 'other']
     },
-    amount_std: {
+    max_student: {
         type: Number,
-        default: 0
+        default: 8,
+        max: 12
+    },
+    current_student: {
+        type: Nubmer,
+        default: 0,
+        max: 12
     },
     list_student: [{
         student: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Student',
+            type: String,
         }
     }]
 
 })
+
+roomSchema.methods.check_number_student = async function (current_student, max_student) {
+    if (current_student === max_student) {
+        return 'full'
+    }
+    if (current_student > max_student) {
+        return 'full'
+    }
+    return 'not_full'
+}
 roomSchema.index({
     building: 1,
-    room_id: 1
+    room: 1
 })
 const roomModel = mongoose.model('Room', roomSchema);
 module.exports = roomModel;

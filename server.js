@@ -9,7 +9,7 @@ dotenv.config()
 // Đăng ký model
 const studentModel = require('./models/student')
 // Đăng ký Route
-const studentRoute = require('./routes/student')
+const student_manage_route = require('./routes/route_manage_student')
 // const manageModel = require('./models/manager')
 const nodemailer = require('nodemailer')
 // Kết nối database
@@ -34,7 +34,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-app.use('/student',studentRoute)
+app.use('/student',student_manage_route)
 
 
 app.listen(process.env.PORT, (err) => {

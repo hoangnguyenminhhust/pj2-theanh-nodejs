@@ -6,7 +6,7 @@ const student = async (req, res, next) => {
     try {
 
         const token = req.headers['x-access-token'] || req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, 'secretKey')
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
         const student = await Student.findOne({
             _id: decoded._id
         })

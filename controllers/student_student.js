@@ -4,32 +4,35 @@ const moment = require('moment');
 const session = require('express-session')
 
 var rand, mailOptions, host, link
-// 04/09/2020
+// MM/DD/YYYY
 
-exports.log_out_student = function(req, res) {
-  req.session.destroy(function (err) {
-    if (err) {
-      console.log(err)
+exports.student_log_out = function (req, res) {
+  req.session.destroy(function (e) {
+    if (e) {
+      res.send(e)
     } else {
-      res.redirect(`http://${req.get('host')}/homepage` )
+      res.redirect(`http://${req.get('host')}/homepage`)
     }
   })
 }
 
 
-module.exports.login_student = async (req, res) => {    
+module.exports.student_login = async (req, res) => {
   try {
-      const user = await Student.findByCredentials(req.body.user_name, req.body.password)
-      const token = await user.generateAuthToken()
-      req.session.save()
-      res.send({user,token})
+    const user = await Student.findByCredentials(req.body.user_name, req.body.password)
+    const token = await user.generateAuthToken()
+    req.session.save()
+    res.send({
+      user,
+      token
+    })
   } catch (e) {
-      res.send(e)
+    res.send(e)
   }
 }
 
 
-exports.verify_student = async function (req, res) {
+exports.student_verify = async function (req, res) {
 
   try {
     const Now = new Date(Date.now())
@@ -48,7 +51,7 @@ exports.verify_student = async function (req, res) {
   }
 }
 
-exports.sign_up_student = async (req, res) => {
+exports.student_sign_up = async (req, res) => {
   const hashpassword = md5(req.body.password, 12)
   const student = await studentModel.create({
     user_name: req.body.user_name,
@@ -99,48 +102,15 @@ exports.sign_up_student = async (req, res) => {
   }
 }
 
-
-exports.list_all_student = async function (req, res) {
-  try {
-    var data = await Student.find({})
-    res.send(data)
-  } catch (e) {
-    res.send(e)
+exports.student_views_one = async function (req, res) {
+    try {
+    const user= req.user
+      var data = await Student.findOne({
+          _id: user._id
+        })
+        .populate('Room')
+      res.send(data)
+    } catch (e) {
+      res.send(e)
+    }
   }
-}
-
-exports.views_one_student = async function (req, res) {
-  try {
-    var data = await Student.findOne({
-        _id: req.params.student_id
-      })
-      .populate('Room')
-    res.send(data)
-  } catch (e) {
-    res.send(e)
-  }
-}
-
-exports.udpate_student = async function (req, res) {
-  try {
-    var data = await Student.findOneAndUpdate({
-      _id: req.params.student_id
-    }, req.body, {
-      new: true
-    })
-    res.send(data)
-  } catch (e) {
-    res.send(e)
-  }
-}
-
-exports.delete_student = async function (req, res) {
-  try {
-    var data = await Student.findOneAndDelete({
-      _id: req.params.student_id
-    })
-    res.send(data)
-  } catch (e) {
-    res.send(e)
-  }
-}
