@@ -31,7 +31,7 @@ const roomSchema = new mongoose.Schema({
         max: 12
     },
     current_student: {
-        type: Nubmer,
+        type: Number,
         default: 0,
         max: 12
     },

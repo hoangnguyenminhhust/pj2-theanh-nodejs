@@ -8,6 +8,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 // Đăng ký model
 const studentModel = require('./models/student')
+const roomModel = require('./models/room')
 // Đăng ký Route
 const student_manage_route = require('./routes/route_manage_student')
 // const manageModel = require('./models/manager')
